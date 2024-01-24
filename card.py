@@ -59,7 +59,7 @@ def length_is(expected_length, actual_length):
 
 
 def starts_with(digits, number):
-    if number[0 : len(digits[0])] in digits:
+    if number[: len(digits[0])] in digits:
         return True
     return False
 
