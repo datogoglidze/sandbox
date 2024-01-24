@@ -11,28 +11,29 @@ def read_card(number, length):
     if (
         length_is([15], length)
         and starts_with(["34", "37"], number)
-        and is_valid(number)
+        and is_valid(number, length)
     ):
         return "AMEX\n"
     elif (
-        length_is([13, 16], length) and starts_with(["4"], number) and is_valid(number)
+        length_is([13, 16], length)
+        and starts_with(["4"], number)
+        and is_valid(number, length)
     ):
         return "VISA\n"
     elif (
         length_is([16], length)
         and starts_with(["51", "52", "53", "54", "55"], number)
-        and is_valid(number)
+        and is_valid(number, length)
     ):
         return "MASTERCARD\n"
     else:
         return "INVALID\n"
 
 
-def is_valid(number):
-    number_length = len(number)
+def is_valid(number, length):
     results = []
 
-    for digit in range(number_length - 2, -1, -2):
+    for digit in range(length - 2, -1, -2):
         result = str(int(number[digit]) * 2)
 
         for i in result:
@@ -40,7 +41,7 @@ def is_valid(number):
 
     total = sum(results)
 
-    for k in range(number_length - 1, -1, -2):
+    for k in range(length - 1, -1, -2):
         total += int(number[k])
 
     if total % 10 == 0:
@@ -62,15 +63,15 @@ def starts_with(digits, number):
 
 
 def test_amex():
-    assert is_valid("378282246310005") == True
+    assert is_valid("378282246310005", len("378282246310005")) == True
     assert main("378282246310005") == "AMEX\n"
 
 
 def test_mastercard():
-    assert is_valid("5555555555554444") == True
+    assert is_valid("5555555555554444", len("5555555555554444")) == True
     assert main("5555555555554444") == "MASTERCARD\n"
 
 
 def test_invalid():
-    assert is_valid("1234567890") == False
+    assert is_valid("1234567890", len("1234567890")) == False
     assert main("1234567890") == "INVALID\n"
