@@ -3,11 +3,11 @@ from dataclasses import dataclass
 
 @dataclass
 class Card:
-    number: str
+    card_number: str
 
     @property
     def length(self) -> int:
-        return len(self.number)
+        return len(self.card_number)
 
     def read_card(self) -> str:
         if self.length_is([15]) and self.starts_with(["34", "37"]) and self.is_valid():
@@ -27,13 +27,13 @@ class Card:
         results = []
 
         for digit in range(self.length - 2, -1, -2):
-            calculated = str(int(self.number[digit]) * 2)
+            calculated = str(int(self.card_number[digit]) * 2)
 
             for i in calculated:
                 results.append(int(i))
 
         for k in range(self.length - 1, -1, -2):
-            results.append(int(self.number[k]))
+            results.append(int(self.card_number[k]))
 
         if sum(results) % 10 == 0:
             return True
@@ -47,7 +47,7 @@ class Card:
         return False
 
     def starts_with(self, digits: list[str]) -> bool:
-        if self.number[: len(digits[0])] in digits:
+        if self.card_number[: len(digits[0])] in digits:
             return True
 
         return False
