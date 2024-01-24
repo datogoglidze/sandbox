@@ -1,9 +1,9 @@
 from cs50 import get_string
 
 
-def main():
-    card_number = get_string("Number: ")
-    read_card(card_number)
+def main(card_number):
+    # card_number = get_string("Number: ")
+    return read_card(card_number)
 
 
 def read_card(number):
@@ -14,13 +14,13 @@ def read_card(number):
         and (number[0:2] == "34" or number[0:2] == "37")
         and is_valid(number)
     ):
-        print("AMEX\n")
+        return "AMEX\n"
     elif (
         (number_length == 16 or number_length == 13)
         and number[0] == "4"
         and is_valid(number)
     ):
-        print("VISA\n")
+        return "VISA\n"
     elif (
         number_length == 16
         and (
@@ -32,9 +32,9 @@ def read_card(number):
         )
         and is_valid(number)
     ):
-        print("MASTERCARD\n")
+        return "MASTERCARD\n"
     else:
-        print("INVALID\n")
+        return "INVALID\n"
 
 
 def is_valid(number):
@@ -57,4 +57,16 @@ def is_valid(number):
     return False
 
 
-main()
+def test_amex():
+    assert is_valid("378282246310005") == True
+    assert main("378282246310005") == "AMEX\n"
+
+
+def test_mastercard():
+    assert is_valid("5555555555554444") == True
+    assert main("5555555555554444") == "MASTERCARD\n"
+
+
+def test_invalid():
+    assert is_valid("1234567890") == False
+    assert main("1234567890") == "INVALID\n"
