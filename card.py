@@ -34,15 +34,15 @@ def is_valid(number, length):
     results = []
 
     for digit in range(length - 2, -1, -2):
-        result = str(int(number[digit]) * 2)
+        calculated = str(int(number[digit]) * 2)
 
-        for i in result:
+        for i in calculated:
             results.append(int(i))
 
-    total = sum(results)
-
     for k in range(length - 1, -1, -2):
-        total += int(number[k])
+        results.append(int(number[k]))
+
+    total = sum(results)
 
     if total % 10 == 0:
         return True
