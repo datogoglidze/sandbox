@@ -1,73 +1,79 @@
-def main(card_number: str) -> str:
-    length = len(card_number)
-    return read_card(card_number, length)
+from dataclasses import dataclass
 
 
-def read_card(number: str, length: int) -> str:
-    if (
-        length_check([15], length)
-        and start_check(["34", "37"], number)
-        and validity_check(number, length)
-    ):
-        return "AMEX\n"
-    elif (
-        length_check([13, 16], length)
-        and start_check(["4"], number)
-        and validity_check(number, length)
-    ):
-        return "VISA\n"
-    elif (
-        length_check([16], length)
-        and start_check(["51", "52", "53", "54", "55"], number)
-        and validity_check(number, length)
-    ):
-        return "MASTERCARD\n"
-    else:
-        return "INVALID\n"
+@dataclass
+class Card:
+    number: str
 
+    @property
+    def length(self) -> int:
+        return len(self.number)
 
-def validity_check(number: str, length: int) -> bool:
-    results = []
+    def read_card(self) -> str:
+        if (
+            self.length_check([15])
+            and self.start_check(["34", "37"])
+            and self.validity_check()
+        ):
+            return "AMEX\n"
+        elif (
+            self.length_check([13, 16])
+            and self.start_check(["4"])
+            and self.validity_check()
+        ):
+            return "VISA\n"
+        elif (
+            self.length_check([16])
+            and self.start_check(["51", "52", "53", "54", "55"])
+            and self.validity_check()
+        ):
+            return "MASTERCARD\n"
+        else:
+            return "INVALID\n"
 
-    for digit in range(length - 2, -1, -2):
-        calculated = str(int(number[digit]) * 2)
+    def validity_check(self) -> bool:
+        results = []
 
-        for i in calculated:
-            results.append(int(i))
+        for digit in range(self.length - 2, -1, -2):
+            calculated = str(int(self.number[digit]) * 2)
 
-    for k in range(length - 1, -1, -2):
-        results.append(int(number[k]))
+            for i in calculated:
+                results.append(int(i))
 
-    if sum(results) % 10 == 0:
-        return True
+        for k in range(self.length - 1, -1, -2):
+            results.append(int(self.number[k]))
 
-    return False
+        if sum(results) % 10 == 0:
+            return True
 
+        return False
 
-def length_check(expected_length: list[int], actual_length: int) -> bool:
-    if actual_length in expected_length:
-        return True
+    def length_check(self, expected_length: list[int]) -> bool:
+        if self.length in expected_length:
+            return True
 
-    return False
+        return False
 
+    def start_check(self, digits: list[str]) -> bool:
+        if self.number[: len(digits[0])] in digits:
+            return True
 
-def start_check(digits: list[str], number: str) -> bool:
-    if number[: len(digits[0])] in digits:
-        return True
-
-    return False
+        return False
 
 
 def test_amex() -> None:
-    assert validity_check("378282246310005", len("378282246310005"))
-    assert main("378282246310005") == "AMEX\n"
+    card = Card("378282246310005")
+    assert card.validity_check()
+    assert card.read_card() == "AMEX\n"
 
 
 def test_mastercard() -> None:
-    assert validity_check("5555555555554444", len("5555555555554444"))
-    assert main("5555555555554444") == "MASTERCARD\n"
+    card = Card("5555555555554444")
+    assert card.validity_check()
+    assert card.read_card() == "MASTERCARD\n"
 
 
 def test_invalid() -> None:
-    assert not validity_check("1234567890", len("1234567890"))
-    assert main("1234567890") == "INVALID\n"
+    card = Card("1234567890")
+    assert not card.validity_check()
+    assert card.read_card() == "INVALID\n"
