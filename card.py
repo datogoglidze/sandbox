@@ -51,12 +51,14 @@ def is_valid(number, length):
 def length_is(expected_length, actual_length):
     if actual_length in expected_length:
         return True
+
     return False
 
 
 def starts_with(digits, number):
     if number[: len(digits[0])] in digits:
         return True
+
     return False
 
 
