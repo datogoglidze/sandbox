@@ -42,9 +42,7 @@ def is_valid(number, length):
     for k in range(length - 1, -1, -2):
         results.append(int(number[k]))
 
-    total = sum(results)
-
-    if total % 10 == 0:
+    if sum(results) % 10 == 0:
         return True
 
     return False
