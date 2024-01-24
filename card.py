@@ -3,26 +3,23 @@ from cs50 import get_string
 
 def main(card_number):
     # card_number = get_string("Number: ")
-    return read_card(card_number)
+    length = len(card_number)
+    return read_card(card_number, length)
 
 
-def read_card(number):
-    number_length = len(number)
-
+def read_card(number, length):
     if (
-        length_is([15], number_length)
+        length_is([15], length)
         and starts_with(["34", "37"], number)
         and is_valid(number)
     ):
         return "AMEX\n"
     elif (
-        length_is([13, 16], number_length)
-        and starts_with(["4"], number)
-        and is_valid(number)
+        length_is([13, 16], length) and starts_with(["4"], number) and is_valid(number)
     ):
         return "VISA\n"
     elif (
-        length_is([16], number_length)
+        length_is([16], length)
         and starts_with(["51", "52", "53", "54", "55"], number)
         and is_valid(number)
     ):
