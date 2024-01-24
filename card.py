@@ -1,4 +1,4 @@
-from cs50 import get_string
+# from cs50 import get_string
 
 
 def main(card_number):
@@ -9,28 +9,28 @@ def main(card_number):
 
 def read_card(number, length):
     if (
-        length_is([15], length)
-        and starts_with(["34", "37"], number)
-        and is_valid(number, length)
+        length_check([15], length)
+        and start_check(["34", "37"], number)
+        and validity_check(number, length)
     ):
         return "AMEX\n"
     elif (
-        length_is([13, 16], length)
-        and starts_with(["4"], number)
-        and is_valid(number, length)
+        length_check([13, 16], length)
+        and start_check(["4"], number)
+        and validity_check(number, length)
     ):
         return "VISA\n"
     elif (
-        length_is([16], length)
-        and starts_with(["51", "52", "53", "54", "55"], number)
-        and is_valid(number, length)
+        length_check([16], length)
+        and start_check(["51", "52", "53", "54", "55"], number)
+        and validity_check(number, length)
     ):
         return "MASTERCARD\n"
     else:
         return "INVALID\n"
 
 
-def is_valid(number, length):
+def validity_check(number, length):
     results = []
 
     for digit in range(length - 2, -1, -2):
@@ -48,14 +48,14 @@ def is_valid(number, length):
     return False
 
 
-def length_is(expected_length, actual_length):
+def length_check(expected_length, actual_length):
     if actual_length in expected_length:
         return True
 
     return False
 
 
-def starts_with(digits, number):
+def start_check(digits, number):
     if number[: len(digits[0])] in digits:
         return True
 
@@ -63,15 +63,15 @@ def starts_with(digits, number):
 
 
 def test_amex():
-    assert is_valid("378282246310005", len("378282246310005")) == True
+    assert validity_check("378282246310005", len("378282246310005"))
     assert main("378282246310005") == "AMEX\n"
 
 
 def test_mastercard():
-    assert is_valid("5555555555554444", len("5555555555554444")) == True
+    assert validity_check("5555555555554444", len("5555555555554444"))
     assert main("5555555555554444") == "MASTERCARD\n"
 
 
 def test_invalid():
-    assert is_valid("1234567890", len("1234567890")) == False
+    assert not validity_check("1234567890", len("1234567890"))
     assert main("1234567890") == "INVALID\n"
