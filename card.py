@@ -10,26 +10,20 @@ def read_card(number):
     number_length = len(number)
 
     if (
-        number_length == 15
-        and (number[0:2] == "34" or number[0:2] == "37")
+        length_is([15], number_length)
+        and starts_with(["34", "37"], number)
         and is_valid(number)
     ):
         return "AMEX\n"
     elif (
-        (number_length == 16 or number_length == 13)
-        and number[0] == "4"
+        length_is([13, 16], number_length)
+        and starts_with(["4"], number)
         and is_valid(number)
     ):
         return "VISA\n"
     elif (
-        number_length == 16
-        and (
-            number[0:2] == "51"
-            or number[0:2] == "52"
-            or number[0:2] == "53"
-            or number[0:2] == "54"
-            or number[0:2] == "55"
-        )
+        length_is([16], number_length)
+        and starts_with(["51", "52", "53", "54", "55"], number)
         and is_valid(number)
     ):
         return "MASTERCARD\n"
@@ -55,6 +49,18 @@ def is_valid(number):
     if total % 10 == 0:
         return True
 
+    return False
+
+
+def length_is(expected_length, actual_length):
+    if actual_length in expected_length:
+        return True
+    return False
+
+
+def starts_with(digits, number):
+    if number[0 : len(digits[0])] in digits:
+        return True
     return False
 
 
