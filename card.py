@@ -1,8 +1,4 @@
-# from cs50 import get_string
-
-
 def main(card_number):
-    # card_number = get_string("Number: ")
     length = len(card_number)
     return read_card(card_number, length)
 
