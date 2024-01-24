@@ -1,9 +1,9 @@
-def main(card_number):
+def main(card_number: str) -> str:
     length = len(card_number)
     return read_card(card_number, length)
 
 
-def read_card(number, length):
+def read_card(number: str, length: int) -> str:
     if (
         length_check([15], length)
         and start_check(["34", "37"], number)
@@ -26,7 +26,7 @@ def read_card(number, length):
         return "INVALID\n"
 
 
-def validity_check(number, length):
+def validity_check(number: str, length: int) -> bool:
     results = []
 
     for digit in range(length - 2, -1, -2):
@@ -44,30 +44,30 @@ def validity_check(number, length):
     return False
 
 
-def length_check(expected_length, actual_length):
+def length_check(expected_length: list[int], actual_length: int) -> bool:
     if actual_length in expected_length:
         return True
 
     return False
 
 
-def start_check(digits, number):
+def start_check(digits: list[str], number: str) -> bool:
     if number[: len(digits[0])] in digits:
         return True
 
     return False
 
 
-def test_amex():
+def test_amex() -> None:
     assert validity_check("378282246310005", len("378282246310005"))
     assert main("378282246310005") == "AMEX\n"
 
 
-def test_mastercard():
+def test_mastercard() -> None:
     assert validity_check("5555555555554444", len("5555555555554444"))
     assert main("5555555555554444") == "MASTERCARD\n"
 
 
-def test_invalid():
+def test_invalid() -> None:
     assert not validity_check("1234567890", len("1234567890"))
     assert main("1234567890") == "INVALID\n"
