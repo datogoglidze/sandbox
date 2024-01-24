@@ -41,8 +41,9 @@ def is_valid(number):
     number_length = len(number)
     results = []
 
-    for digit in range(number_length - 2, 0, -2):
+    for digit in range(number_length - 2, -1, -2):
         result = str(int(number[digit]) * 2)
+
         for i in result:
             results.append(int(i))
 
