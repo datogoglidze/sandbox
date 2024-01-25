@@ -14,7 +14,6 @@ pytest = "*"
 pytest-cov = "*"
 coverage = "*"
 faker = "*"
-hypothesis = "*"
 pytest-env = "*"
 
 [tool.poetry.group.lint.dependencies]
