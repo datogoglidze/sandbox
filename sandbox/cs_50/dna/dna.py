@@ -1,24 +1,16 @@
 import csv
-from sys import argv
 
 
-# how to run:
-# python dna.py '.csv_file_dir' 'txt_file_dir'
-def main():
-    # TODO: Check for command-line usage
-    if len(argv) != 3:
-        print("Missing command-line argument")
-        exit(1)
-
+def main(csv_file, txt_file):
     # TODO: Read database file into a variable
     rows = []
-    with open(f"{argv[1]}") as data_file:
+    with open(csv_file) as data_file:
         reader = csv.DictReader(data_file)
         for row in reader:
             rows.append(row)
 
     # TODO: Read DNA sequence file into a variable
-    with open(f"{argv[2]}") as sequence_file:
+    with open(txt_file) as sequence_file:
         dna = sequence_file.readline()
 
     # TODO: Find longest match of each STR in DNA sequence
@@ -28,10 +20,9 @@ def main():
     # TODO: Check database for matching profiles
     for row in rows:
         if all(int(row[key]) == value for key, value in zip(strs, result)):
-            print(row["name"])
-            exit(0)
+            return row["name"]
 
-    print("No match")
+    return "No match"
 
 
 def longest_match(sequence, subsequence):
@@ -70,4 +61,5 @@ def longest_match(sequence, subsequence):
     return longest_run
 
 
-main()
+def test_():
+    assert main("databases/small.csv", "sequences/1.txt") == "Bob"
