@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "sandbox"
+version = "0.1.0"
+description = ""
+authors = ["David Goglidze <d.goglidze22@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+cs50 = "9.3.*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+pytest-cov = "*"
+coverage = "*"
+faker = "*"
+hypothesis = "*"
+pytest-env = "*"
+
+[tool.poetry.group.lint.dependencies]
+black = "*"
+mypy = "*"
+ruff = "*"
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+strict = true
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+select = ["E", "F", "I"]
+ignore = []
+fixable = ["A", "B", "C", "D", "E", "F", "I"]
+unfixable = []
+
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".ruff_cache",
+    "venv",
+]
+
+[tool.ruff.mccabe]
+max-complexity = 10
+
+[tool.coverage.report]
+skip_empty = true
+skip_covered = true
+show_missing = true
