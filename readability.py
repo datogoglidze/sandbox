@@ -38,43 +38,33 @@ def test_before_grade_one():
 
 
 def test_grade_three():
-    assert (
-        main(
-            "Congratulations! Today is your day. You're off to Great Places! You're off and away!"
-        )
-        == "Grade 3"
-    )
+    text_ = "Congratulations! Today is your day. You're off to Great Places! You're off and away!"
+    assert main(text_) == "Grade 3"
 
 
 def test_grade_five():
-    assert (
-        main(
-            "Harry Potter was a highly unusual boy in many ways. For one thing, he hated the summer holidays more "
-            "than any other time of year. For another, he really wanted to do his homework, but was forced to do it "
-            "in secret, in the dead of the night. And he also happened to be a wizard."
-        )
-        == "Grade 5"
+    text_ = (
+        "Harry Potter was a highly unusual boy in many ways. For one thing, he hated the summer holidays more "
+        "than any other time of year. For another, he really wanted to do his homework, but was forced to do it "
+        "in secret, in the dead of the night. And he also happened to be a wizard."
     )
+    assert main(text_) == "Grade 5"
 
 
 def test_grade_eight():
-    assert (
-        main(
-            "When he was nearly thirteen, my brother Jem got his arm badly broken at the elbow. When it healed, "
-            "and Jem's fears of never being able to play football were assuaged, he was seldom self-conscious about "
-            "his injury. His left arm was somewhat shorter than his right; when he stood or walked, the back of his "
-            "hand was at right angles to his body, his thumb parallel to his thigh."
-        )
-        == "Grade 8"
+    text_ = (
+        "When he was nearly thirteen, my brother Jem got his arm badly broken at the elbow. When it healed, "
+        "and Jem's fears of never being able to play football were assuaged, he was seldom self-conscious about "
+        "his injury. His left arm was somewhat shorter than his right; when he stood or walked, the back of his "
+        "hand was at right angles to his body, his thumb parallel to his thigh."
     )
+    assert main(text_) == "Grade 8"
 
 
 def test_grade_max():
-    assert (
-        main(
-            "A large class of computational problems involve the determination of properties of graphs, digraphs, "
-            "integers, arrays of integers, finite families of finite sets, boolean formulas and elements of other "
-            "countable domains."
-        )
-        == "Grade 16+"
+    text_ = (
+        "A large class of computational problems involve the determination of properties of graphs, digraphs, "
+        "integers, arrays of integers, finite families of finite sets, boolean formulas and elements of other "
+        "countable domains."
     )
+    assert main(text_) == "Grade 16+"
